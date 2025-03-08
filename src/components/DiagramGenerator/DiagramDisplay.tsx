@@ -117,14 +117,14 @@ export function DiagramDisplay({
         aria-labelledby="modal-title"
       >
         <div
-          className="bg-white w-full h-full max-h-screen rounded-lg flex flex-col shadow-xl animate-in fade-in duration-200"
+          className="w-full h-full max-h-screen rounded-lg flex flex-col shadow-xl animate-in fade-in duration-200"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between p-4 border-b">
+          <div className="p-4 border-b flex flex-col md:flex-row items-center justify-between">
             <h2 id="modal-title" className="text-lg font-semibold">
               Generated Diagram
             </h2>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 mt-4 md:mt-0">
               <Button
                 variant="ghost"
                 size="sm"
@@ -139,6 +139,7 @@ export function DiagramDisplay({
                 size="sm"
                 onClick={handleCopyCode}
                 aria-label="Copy diagram code"
+                className="hidden md:block"
               >
                 Copy Code
               </Button>
@@ -169,9 +170,9 @@ export function DiagramDisplay({
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-col md:flex-row items-center justify-between">
         <CardTitle>Generated Diagram</CardTitle>
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-4 md:mt-0">
           <Button
             variant="outline"
             size="sm"
@@ -186,6 +187,7 @@ export function DiagramDisplay({
             size="sm"
             onClick={handleCopyCode}
             aria-label="Copy diagram code"
+            className="hidden md:block"
           >
             Copy Code
           </Button>
@@ -201,7 +203,7 @@ export function DiagramDisplay({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="border rounded-lg p-4 bg-white h-fit">
+        <div className="border rounded-lg md:p-4 h-fit">
           <MermaidDiagram
             code={mermaidCode}
             className="max-w-full"

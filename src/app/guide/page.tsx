@@ -38,7 +38,7 @@ export default function GuidePage() {
             id="diagram-select"
             value={selectedDiagram}
             onChange={(e) => setSelectedDiagram(e.target.value)}
-            className="w-fit p-2 border rounded-md bg-white"
+            className="w-fit p-2 border rounded-md"
           >
             {DIAGRAM_TYPES.map((type) => (
               <option key={type} value={type}>

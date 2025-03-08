@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
     // Call OpenAI API
     const response = await openai.chat.completions.create({
       model: 'gpt-4-turbo',
-      messages: messages as any,
+      messages: messages as ChatCompletionMessageParam[],
       temperature: 0.7,
       max_tokens: 1500,
     });
@@ -50,10 +51,13 @@ export async function POST(request: NextRequest) {
       mermaidCode,
       fullResponse: content,
     });
-  } catch (error: any) {
+  } catch (error: Error | unknown) {
     console.error('Error generating diagram:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to generate diagram' },
+      {
+        error:
+          error instanceof Error ? error.message : 'Failed to generate diagram',
+      },
       { status: 500 }
     );
   }

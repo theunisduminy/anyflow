@@ -12,8 +12,6 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DIAGRAM_TYPES } from './types';
-import mermaid from 'mermaid';
-import { toast } from 'sonner';
 
 interface DiagramFormProps {
   diagramType: string;
@@ -45,8 +43,6 @@ export function DiagramForm({
   handleGenerate,
   handleRefine,
   handleReset,
-  mermaidCode,
-  setMermaidCode,
 }: DiagramFormProps) {
   return (
     <Card>
@@ -136,34 +132,6 @@ export function DiagramForm({
           ) : (
             'Refine Diagram'
           )}
-        </Button>
-
-        {/* Test Diagram Button */}
-        <Button
-          onClick={() => {
-            const testDiagram = `flowchart TD
-Start[Start] --> Question{Is it working?}
-Question -->|Yes| Good[Great!]
-Question -->|No| Bad[Debug]
-Good --> End[Done]
-Bad --> Question`;
-
-            console.log('Using test diagram:', testDiagram);
-            setMermaidCode(testDiagram);
-            toast.info('Test diagram loaded');
-
-            // Pre-validate the diagram
-            mermaid
-              .parse(testDiagram)
-              .then(() => console.log('Test diagram syntax is valid'))
-              .catch((error) =>
-                console.error('Test diagram syntax error:', error)
-              );
-          }}
-          variant="outline"
-          className="ml-2"
-        >
-          Show an example
         </Button>
       </CardContent>
     </Card>

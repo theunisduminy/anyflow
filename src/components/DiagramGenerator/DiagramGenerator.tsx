@@ -67,9 +67,11 @@ export function DiagramGenerator() {
       setHistory(newHistory);
       setIsInitialGeneration(false);
       toast.success('Diagram generated successfully');
-    } catch (error: any) {
-      setError(error.message || 'Failed to generate diagram');
-      toast.error(error.message || 'Failed to generate diagram');
+    } catch (error: Error | unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to generate diagram';
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsGenerating(false);
     }
@@ -127,9 +129,11 @@ export function DiagramGenerator() {
 
       setFollowUpPrompt('');
       toast.success('Diagram refined successfully');
-    } catch (error: any) {
-      setError(error.message || 'Failed to refine diagram');
-      toast.error(error.message || 'Failed to refine diagram');
+    } catch (error: Error | unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to refine diagram';
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsGenerating(false);
     }
