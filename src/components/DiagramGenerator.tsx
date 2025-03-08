@@ -18,7 +18,27 @@ import mermaid from 'mermaid';
 import { Maximize2, Minimize2 } from 'lucide-react';
 
 // Define diagram types
-const DIAGRAM_TYPES = ['Process Flow', 'EERD', 'System Diagram'];
+const DIAGRAM_TYPES = [
+  'Flowchart',
+  'Sequence Diagram',
+  'Class Diagram',
+  'State Diagram',
+  'Entity Relationship Diagram',
+  'User Journey',
+  'Gantt Chart',
+  'Pie Chart',
+  'Quadrant Chart',
+  'Requirement Diagram',
+  'Gitgraph Diagram',
+  'C4 Diagram',
+  'Mindmap',
+  'Timeline',
+  'Sankey Diagram',
+  'XY Chart',
+  'Block Diagram',
+  'Process Flow',
+  'System Diagram',
+];
 
 // Define message type for conversation history
 type Message = {
@@ -28,7 +48,7 @@ type Message = {
 
 export function DiagramGenerator() {
   // State for form inputs
-  const [diagramType, setDiagramType] = useState<string>('Process Flow');
+  const [diagramType, setDiagramType] = useState<string>('Flowchart');
   const [description, setDescription] = useState<string>('');
   const [followUpPrompt, setFollowUpPrompt] = useState<string>('');
 
@@ -165,7 +185,7 @@ export function DiagramGenerator() {
 
   // Reset the form and start over
   const handleReset = () => {
-    setDiagramType('Process Flow');
+    setDiagramType('Flowchart');
     setDescription('');
     setFollowUpPrompt('');
     setMermaidCode('');
@@ -385,10 +405,11 @@ export function DiagramGenerator() {
                   </div>
                 </div>
                 <div className="flex-1 overflow-auto p-4 bg-gray-50">
-                  <div className="h-full flex items-center justify-center">
+                  <div className="h-full w-full flex items-center justify-center">
                     <MermaidDiagram
                       code={mermaidCode}
-                      className="max-w-[90vw]"
+                      className="w-full h-full mx-auto"
+                      isFullScreen={true}
                     />
                   </div>
                 </div>
@@ -421,8 +442,12 @@ export function DiagramGenerator() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="border rounded-lg p-4 bg-white">
-                <MermaidDiagram code={mermaidCode} />
+              <div className="border rounded-lg p-4 bg-white h-fit">
+                <MermaidDiagram
+                  code={mermaidCode}
+                  className="max-w-full"
+                  isFullScreen={false}
+                />
               </div>
             </CardContent>
           </Card>

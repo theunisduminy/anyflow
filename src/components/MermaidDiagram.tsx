@@ -6,9 +6,14 @@ import mermaid from 'mermaid';
 interface MermaidDiagramProps {
   code: string;
   className?: string;
+  isFullScreen?: boolean;
 }
 
-export function MermaidDiagram({ code, className = '' }: MermaidDiagramProps) {
+export function MermaidDiagram({
+  code,
+  className = '',
+  isFullScreen = false,
+}: MermaidDiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isReady, setIsReady] = useState(false);
   const [diagramHeight, setDiagramHeight] = useState<number | null>(null);
@@ -22,13 +27,48 @@ export function MermaidDiagram({ code, className = '' }: MermaidDiagramProps) {
       logLevel: 3,
       fontFamily: 'sans-serif',
       flowchart: {
-        useMaxWidth: true,
+        useMaxWidth: false,
         htmlLabels: true,
         curve: 'basis',
         // Add some spacing controls
         rankSpacing: 30,
         nodeSpacing: 30,
         padding: 15,
+      },
+      sequence: {
+        diagramMarginX: 50,
+        diagramMarginY: 10,
+        actorMargin: 50,
+        width: 150,
+        height: 65,
+        boxMargin: 10,
+        boxTextMargin: 5,
+        noteMargin: 10,
+        messageMargin: 35,
+      },
+      gantt: {
+        titleTopMargin: 25,
+        barHeight: 20,
+        barGap: 4,
+        topPadding: 50,
+        leftPadding: 75,
+        gridLineStartPadding: 35,
+        fontSize: 11,
+        sectionFontSize: 11,
+        numberSectionStyles: 4,
+      },
+      er: {
+        diagramPadding: 20,
+        layoutDirection: 'TB',
+        minEntityWidth: 100,
+        minEntityHeight: 75,
+        entityPadding: 15,
+        stroke: 'gray',
+        fill: 'honeydew',
+        fontSize: 12,
+      },
+      pie: {
+        textPosition: 0.5,
       },
     });
     setIsReady(true);
@@ -75,28 +115,32 @@ export function MermaidDiagram({ code, className = '' }: MermaidDiagramProps) {
         if (svg) {
           console.log('SVG rendered successfully');
 
-          // Make SVG responsive
-          svg.style.maxWidth = '100%';
+          // Allow SVG to use its natural size
+          svg.style.maxWidth = 'none';
           svg.style.height = 'auto';
           svg.style.display = 'block';
-          svg.setAttribute('width', '100%');
-          svg.setAttribute('height', 'auto');
+          svg.removeAttribute('width');
+          svg.setAttribute('height', isFullScreen ? '100%' : 'auto');
 
-          // Scale down the diagram if it's too large
+          // Get the original dimensions from viewBox
           const viewBox = svg.getAttribute('viewBox');
           if (viewBox) {
             const [, , width, height] = viewBox.split(' ').map(Number);
-            const scale = Math.min(1, 800 / width); // Scale down if wider than 800px
-            const scaledHeight = height * scale;
 
-            // Update container height
-            setDiagramHeight(scaledHeight + 40); // Add padding
+            // Determine if we're in full-screen mode based on className
+            const isFullScreenClass =
+              className.includes('max-w-[1000vw]') ||
+              className.includes('max-h-[80vh]');
 
-            // Apply scaling transform
-            if (scale < 1) {
-              svg.style.transform = `scale(${scale})`;
-              svg.style.transformOrigin = 'top left';
+            // Use either the prop or the class detection
+            const effectiveFullScreen = isFullScreen || isFullScreenClass;
+
+            // Update container height only if not in full screen mode
+            if (!effectiveFullScreen) {
+              setDiagramHeight(height + 40); // Add padding to original height
             }
+
+            // No scaling transform - display at original size
           }
         } else {
           console.error('No SVG found after rendering');
@@ -132,17 +176,26 @@ export function MermaidDiagram({ code, className = '' }: MermaidDiagramProps) {
     };
 
     renderDiagram();
-  }, [code, isReady]);
+  }, [code, isReady, isFullScreen]);
 
   return (
     <div
       ref={containerRef}
-      className={`mermaid-container overflow-auto w-full bg-white rounded-lg shadow-sm ${className}`}
+      className={`mermaid-container overflow-auto bg-white rounded-lg shadow-sm ${
+        isFullScreen ? 'h-full' : ''
+      } ${className}`}
       style={{
-        minHeight: '100px',
-        height: diagramHeight ? `${diagramHeight}px` : 'auto',
+        height: isFullScreen
+          ? '100%'
+          : diagramHeight
+          ? `${diagramHeight}px`
+          : 'auto',
         padding: '1rem',
         transition: 'height 0.3s ease-in-out',
+        margin: '0 auto',
+        display: 'block',
+        width: 'auto',
+        minWidth: '100%',
       }}
     />
   );
