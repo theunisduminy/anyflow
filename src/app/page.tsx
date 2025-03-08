@@ -3,16 +3,16 @@ import { Toaster } from '@/components/ui/sonner';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50 ">
       <div className="container mx-auto px-4 py-8">
-        <header className="mb-8 text-center">
+        <div className="mb-8 text-left">
           <h1 className="text-3xl font-bold tracking-tight">
-            AI Diagram Generator
+            Generate diagrams with AI
           </h1>
           <p className="text-gray-500 mt-2">
             Convert text descriptions into visual diagrams using AI
           </p>
-        </header>
+        </div>
 
         <DiagramGenerator />
       </div>
