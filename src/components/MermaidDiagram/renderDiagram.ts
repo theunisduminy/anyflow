@@ -66,7 +66,7 @@ export const renderDiagram = async (
 
         // Determine if we're in full-screen mode based on className
         const isFullScreenClass =
-          container.className.includes('max-w-[1000vw]') ||
+          container.className.includes('max-w-[80vw]') ||
           container.className.includes('max-h-[80vh]');
 
         // Use either the prop or the class detection

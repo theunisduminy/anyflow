@@ -51,17 +51,21 @@ export function DiagramForm({
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Diagram Generator</CardTitle>
+        <CardTitle className="text-3xl mb-2">
+          Create <strong>any</strong> diagram
+        </CardTitle>
         {!isInitialGeneration && (
           <Button variant="outline" size="sm" onClick={handleReset}>
             Start Over
           </Button>
         )}
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-8">
         {/* Diagram Type Selection */}
-        <div className="space-y-2">
-          <Label htmlFor="diagram-type">Diagram Type</Label>
+        <div className="space-y-2 w-fit flex flex-row gap-x-4 justify-between items-baseline">
+          <Label className="w-full" htmlFor="diagram-type">
+            Diagram Type:
+          </Label>
           <Select
             value={diagramType}
             onValueChange={setDiagramType}
@@ -82,8 +86,7 @@ export function DiagramForm({
 
         {/* Initial Description Input */}
         {isInitialGeneration && (
-          <div className="space-y-2">
-            <Label htmlFor="description">Diagram Description</Label>
+          <div className="mt-4">
             <Textarea
               id="description"
               placeholder="Describe the diagram you want to create..."
@@ -122,7 +125,7 @@ export function DiagramForm({
         <Button
           onClick={isInitialGeneration ? handleGenerate : handleRefine}
           disabled={isGenerating}
-          className="w-full"
+          className="w-fit"
         >
           {isGenerating ? (
             <>
@@ -134,39 +137,6 @@ export function DiagramForm({
             'Refine Diagram'
           )}
         </Button>
-
-        {/* Debug Button - Only visible when mermaid code exists */}
-        {mermaidCode && (
-          <Button
-            onClick={() => {
-              console.log('Debug - Raw Mermaid Code:', mermaidCode);
-              // Create a test element to check if Mermaid can parse it
-              const testElement = document.createElement('div');
-              testElement.style.display = 'none';
-              testElement.textContent = mermaidCode;
-              document.body.appendChild(testElement);
-
-              mermaid
-                .parse(mermaidCode)
-                .then((result: any) => {
-                  console.log('Mermaid parse test result:', result);
-                  toast.success('Mermaid code is valid');
-                })
-                .catch((error: any) => {
-                  console.error('Mermaid parse test error:', error);
-                  toast.error('Mermaid code is invalid: ' + error.message);
-                })
-                .finally(() => {
-                  document.body.removeChild(testElement);
-                });
-            }}
-            variant="outline"
-            size="sm"
-            className="mt-2"
-          >
-            Debug Diagram
-          </Button>
-        )}
 
         {/* Test Diagram Button */}
         <Button
@@ -191,10 +161,9 @@ Bad --> Question`;
               );
           }}
           variant="outline"
-          size="sm"
-          className="mt-2 ml-2"
+          className="ml-2"
         >
-          Test Diagram
+          Show an example
         </Button>
       </CardContent>
     </Card>
