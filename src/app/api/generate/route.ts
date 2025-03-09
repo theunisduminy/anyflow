@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize OpenAI client
+type ModelType = 'OPEN_AI' | 'GEMINI';
+
+const MODEL: ModelType = (process.env.MODEL as ModelType) || 'GEMINI';
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,23 +27,42 @@ export async function POST(request: NextRequest) {
     // Construct system prompt based on diagram type
     const systemPrompt = getSystemPrompt(diagramType);
 
-    // Prepare messages for OpenAI
+    // Prepare messages
     const messages = [
       { role: 'system', content: systemPrompt },
       ...history,
       { role: 'user', content: description },
-    ];
+    ] as ChatCompletionMessageParam[];
 
-    // Call OpenAI API
-    const response = await openai.chat.completions.create({
-      model: 'chatgpt-4o-latest',
-      messages: messages as ChatCompletionMessageParam[],
-      temperature: 0.7,
-      max_tokens: 1500,
-    });
+    let content: string;
 
-    // Extract Mermaid code from response
-    const content = response.choices[0].message.content || '';
+    if (MODEL === 'OPEN_AI') {
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4-turbo-preview',
+        messages,
+        temperature: 0.7,
+        max_tokens: 1500,
+      });
+      content = response.choices[0]?.message?.content ?? '';
+      if (!content) throw new Error('No content received from OpenAI');
+    } else {
+      const model = gemini.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      // Combine all messages into a single prompt for Gemini
+      const prompt = messages
+        .map(
+          (msg) =>
+            `${msg.role === 'system' ? 'Instructions' : msg.role}:\n${
+              msg.content
+            }`
+        )
+        .join('\n\n');
+
+      const response = await model.generateContent(prompt);
+      const result = await response.response;
+      content = result.text();
+      if (!content) throw new Error('No content received from Gemini');
+    }
+
     const mermaidCode = extractMermaidCode(content);
 
     if (!mermaidCode) {
@@ -51,15 +76,11 @@ export async function POST(request: NextRequest) {
       mermaidCode,
       fullResponse: content,
     });
-  } catch (error: Error | unknown) {
+  } catch (error: unknown) {
     console.error('Error generating diagram:', error);
-    return NextResponse.json(
-      {
-        error:
-          error instanceof Error ? error.message : 'Failed to generate diagram',
-      },
-      { status: 500 }
-    );
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to generate diagram';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
 

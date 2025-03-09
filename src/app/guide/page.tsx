@@ -25,12 +25,15 @@ export default function GuidePage() {
   return (
     <>
       <div className="container mx-auto p-6 max-w-7xl">
-        <h1 className="text-3xl font-bold mb-6">Mermaid Diagram Guide</h1>
-
-        <div className="mb-6 space-y-2 w-fit flex flex-row gap-x-4 justify-between items-baseline">
+        <h1 className="text-3xl font-bold mb-2">Diagram Types Guide</h1>
+        <p className="text-muted-foreground mb-6">
+          Choose a flowchart or diagram to see an example and learn how to use
+          AnyFlow to generate it.
+        </p>
+        <div className="mb-6 space-y-2 w-fit flex flex-col md:flex-row gap-x-4 justify-between items-baseline">
           <label
             htmlFor="diagram-select"
-            className="block text-sm w-full font-medium mb-2"
+            className="block text-base w-full font-medium mb-4"
           >
             Select Diagram Type
           </label>
@@ -55,7 +58,7 @@ export default function GuidePage() {
                 <h2 className="text-2xl font-semibold mb-4">
                   {selectedDiagram}
                 </h2>
-                <p className="text-gray-700">
+                <p className="text-muted-foreground">
                   {diagramExamples[selectedDiagram]?.explanation}
                 </p>
               </div>

@@ -9,7 +9,7 @@ export default function Home() {
           <h1 className="text-3xl font-bold tracking-tight">
             Generate diagrams with AI
           </h1>
-          <p className="text-gray-500 mt-2">
+          <p className="text-muted-foreground mt-2">
             Convert text descriptions into visual diagrams using AI
           </p>
         </div>

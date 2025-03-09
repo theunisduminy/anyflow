@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Diagram GPT',
-  description: 'Generate any type of diagram using AI',
+  title: 'AnyFlow',
+  description: 'Generate any type of diagram or flowchart using AI',
 };
 
 export default function RootLayout({
