@@ -59,7 +59,7 @@ export function DiagramForm({
       <CardContent className="space-y-8">
         {/* Diagram Type Selection */}
         <div className="space-y-2 w-fit flex flex-row gap-x-4 justify-between items-baseline">
-          <Label className="w-full" htmlFor="diagram-type">
+          <Label className="min-w-24 w-full" htmlFor="diagram-type">
             Diagram Type:
           </Label>
           <Select
