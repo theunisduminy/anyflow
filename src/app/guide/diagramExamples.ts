@@ -6,46 +6,83 @@ interface DiagramExample {
 export const diagramExamples: Record<string, DiagramExample> = {
   Flowchart: {
     explanation:
-      'Flowcharts visualize processes or workflows using connected nodes. Perfect for showing step-by-step procedures or decision trees.',
-    code: `graph TD
+      'Flowcharts visualize processes or workflows using connected nodes. They use different shapes to represent different types of steps: rectangles for processes, diamonds for decisions, and rounded rectangles for start/end points. Arrows show the flow direction and can be labeled to explain conditions.',
+    code: `flowchart TD
     A[Start] --> B{Is it raining?}
     B -->|Yes| C[Take umbrella]
     B -->|No| D[Enjoy the weather]
-    C --> E[End]
-    D --> E`,
+    C --> E[Check forecast]
+    D --> E
+    E --> F[End]`,
   },
   'Sequence Diagram': {
     explanation:
-      'Sequence diagrams show how processes interact with each other in a time-ordered sequence. Great for illustrating system interactions or API flows.',
+      'Sequence diagrams show how processes interact with each other in a time-ordered sequence. They display participants (actors/systems) as vertical lifelines and messages between them as horizontal arrows. You can show activation, loops, alternatives, and notes for additional context.',
     code: `sequenceDiagram
-    participant User
-    participant Client
-    participant Server
-    User->>Client: Click Login
-    Client->>Server: POST /login
-    Server-->>Client: Return Token
-    Client-->>User: Show Dashboard`,
+    actor User
+    participant Frontend
+    participant API
+    participant Database
+    
+    User->>Frontend: Enter credentials
+    activate Frontend
+    Frontend->>API: Send login request
+    activate API
+    API->>Database: Validate credentials
+    activate Database
+    Database-->>API: Return user data
+    deactivate Database
+    API-->>Frontend: Authentication response
+    deactivate API
+    
+    alt successful login
+        Frontend-->>User: Show dashboard
+    else failed login
+        Frontend-->>User: Show error message
+    end
+    deactivate Frontend`,
   },
   'Class Diagram': {
     explanation:
-      'Class diagrams represent the structure of a system by showing classes, attributes, methods, and relationships between classes.',
+      'Class diagrams represent the structure of a system by showing classes, attributes, methods, and relationships between classes. They use UML notation to show inheritance, composition, aggregation, and association relationships. Access modifiers (+public, -private, #protected) can be specified for attributes and methods.',
     code: `classDiagram
     class Animal {
+      +int age
+      +String gender
+      +isMammal()
+      +mate()
+    }
+    class Duck {
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish {
+      -int sizeInFeet
+      -canEat()
+    }
+    class Zebra {
+      +bool isWild
+      +run()
+    }
+    
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    
+    class Student {
+      +String studentId
       +String name
-      +makeSound()
     }
-    class Dog {
-      +bark()
+    class Course {
+      +String courseId
+      +String title
     }
-    class Cat {
-      +meow()
-    }
-    Animal <|-- Dog
-    Animal <|-- Cat`,
+    Student "many" --> "many" Course: enrolls`,
   },
   'State Diagram': {
     explanation:
-      'State diagrams illustrate the different states of a system and the transitions between them.',
+      'State diagrams illustrate the different states of a system and the transitions between them. They show how an entity responds to events by changing from one state to another. States can be simple or composite (containing nested states), and transitions can be labeled with events that trigger them.',
     code: `stateDiagram-v2
     [*] --> Still
     Still --> [*]
@@ -56,91 +93,179 @@ export const diagramExamples: Record<string, DiagramExample> = {
   },
   'Entity Relationship Diagram': {
     explanation:
-      'ERD diagrams show the relationships between entities in a database or system.',
+      "ERD diagrams show the relationships between entities in a database or system. They define entities with their attributes and the cardinality of relationships (one-to-one, one-to-many, many-to-many). Mermaid uses crow's foot notation for cardinality and allows defining attributes within entity blocks.",
     code: `erDiagram
     CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
     CUSTOMER {
-      string name
-      string email
+        string id
+        string name
+        string email
+        string address
     }
+    ORDER ||--|{ LINE_ITEM : contains
     ORDER {
-      int orderNumber
-      date orderDate
+        string id
+        date created_at
+        string status
+    }
+    LINE_ITEM {
+        string id
+        int quantity
+        float price
+    }
+    PRODUCT ||--o{ LINE_ITEM : "ordered in"
+    PRODUCT {
+        string id
+        string name
+        float price
+        string category
     }`,
   },
   'Gantt Chart': {
     explanation:
-      'Gantt charts display project schedules with tasks, durations, and dependencies.',
+      'Gantt charts display project schedules with tasks, durations, and dependencies. They show tasks as horizontal bars along a timeline, with the length representing duration. Tasks can be organized into sections, and dependencies between tasks can be defined. Milestones can be marked at specific points in time.',
     code: `gantt
-    title Project Timeline
-    dateFormat  YYYY-MM-DD
+    title Project Development Schedule
+    dateFormat YYYY-MM-DD
+    
     section Planning
-    Requirements :a1, 2024-01-01, 7d
-    Design      :a2, after a1, 5d
+    Project kickoff       :milestone, 2023-01-15, 0d
+    Requirements gathering :a1, 2023-01-15, 10d
+    System design         :a2, after a1, 15d
+    
     section Development
-    Coding      :after a2, 10d
-    Testing     :5d`,
+    Frontend development  :b1, after a2, 25d
+    Backend development   :b2, after a2, 30d
+    API integration       :b3, after b1, 5d
+    
+    section Testing
+    Unit testing          :c1, after b2, 10d
+    Integration testing   :c2, after b3, 7d
+    User acceptance       :c3, after c2, 7d
+    
+    section Deployment
+    Training              :d1, after c3, 5d
+    Go Live               :milestone, after d1, 0d`,
   },
   'Pie Chart': {
     explanation:
-      'Pie charts show the composition of a whole by dividing it into proportional segments.',
-    code: `pie title Market Share
-    "Product A" : 40
-    "Product B" : 30
-    "Product C" : 30`,
+      'Pie charts show the composition of a whole by dividing it into proportional segments. Each segment represents a category with a value that determines its size relative to the whole. Pie charts are useful for showing percentage distributions and comparing parts to the whole.',
+    code: `pie
+    title Distribution of Customer Types
+    "Enterprise" : 45.2
+    "Small Business" : 30.8
+    "Consumer" : 24.0`,
   },
   'User Journey': {
     explanation:
-      'User Journey diagrams visualize the path a user takes through a system, showing their experience and interactions.',
+      'User Journey diagrams visualize the path a user takes through a system, showing their experience and interactions. Each step is rated on a scale of 1-5 (1=very negative, 5=very positive) to indicate user satisfaction. Steps are organized into sections representing different stages of the journey, and multiple actors can be assigned to each step.',
     code: `journey
-    title User Shopping Experience
-    section Browse
-      View Products: 5: User
-      Search: 4: User
-      Filter Results: 3: User
+    title User Shopping Journey
+    section Browse Website
+      Find product: 3: User
+      View details: 4: User
+      Read reviews: 3: User
     section Purchase
-      Add to Cart: 5: User
+      Add to cart: 5: User
       Checkout: 3: User, System
-      Payment: 3: User, System
+      Enter payment: 2: User, System
     section Post-Purchase
-      Order Confirmation: 5: System
-      Tracking: 4: User, System`,
+      Receive confirmation: 5: User, System
+      Track shipping: 4: User
+      Receive product: 5: User`,
   },
   'Quadrant Chart': {
     explanation:
-      'Quadrant charts divide data into four sections, useful for prioritization and strategic planning.',
+      'Quadrant charts divide data into four sections based on two axes, useful for prioritization and strategic planning. Points are plotted with x,y coordinates ranging from 0 to 1, where (0,0) is the bottom-left corner. Each quadrant can be labeled to describe the characteristics of items in that section.',
     code: `quadrantChart
-    title Prioritization Matrix
-    x-axis Low Priority --> High Priority
-    y-axis Low Effort --> High Effort
-    quadrant-1 Quick Wins
-    quadrant-2 Major Projects
-    quadrant-3 Fill Ins
-    quadrant-4 Time Sinks
-    Task A: [0.4, 0.3]
-    Task B: [0.8, 0.7]
-    Task C: [0.3, 0.8]
-    Task D: [0.7, 0.2]`,
+    title Product Portfolio Analysis
+    x-axis Low Market Share --> High Market Share
+    y-axis Low Growth Rate --> High Growth Rate
+    quadrant-1 Stars
+    quadrant-2 Question Marks
+    quadrant-3 Dogs
+    quadrant-4 Cash Cows
+    Product A: [0.7, 0.8]
+    Product B: [0.45, 0.23]
+    Product C: [0.57, 0.69]
+    Product D: [0.78, 0.34]
+    Product E: [0.40, 0.34]
+    Product F: [0.35, 0.78]`,
   },
   'Requirement Diagram': {
     explanation:
-      'Requirement diagrams show system requirements and their relationships, useful for software planning.',
-    code: `requirementDiagram
-    requirement System {
-      id: 1
-      text: The system must handle user authentication
-      risk: high
-      verifymethod: test
+      'Requirement diagrams show system requirements and their relationships, following SysML v1.6 specifications. Requirements have properties like ID, text description, risk level, and verification method. Elements represent implementations that satisfy requirements. Relationships between requirements and elements can be of various types: contains, satisfies, derives, verifies, refines, copies, or traces.',
+    code: `    requirementDiagram
+
+    requirement test_req {
+    id: 1
+    text: the test text.
+    risk: high
+    verifymethod: test
     }
-    element AuthModule {
-      type: module
+
+    functionalRequirement test_req2 {
+    id: 1.1
+    text: the second test text.
+    risk: low
+    verifymethod: inspection
     }
-    System - satisfies -> AuthModule`,
+
+    performanceRequirement test_req3 {
+    id: 1.2
+    text: the third test text.
+    risk: medium
+    verifymethod: demonstration
+    }
+
+    interfaceRequirement test_req4 {
+    id: 1.2.1
+    text: the fourth test text.
+    risk: medium
+    verifymethod: analysis
+    }
+
+    physicalRequirement test_req5 {
+    id: 1.2.2
+    text: the fifth test text.
+    risk: medium
+    verifymethod: analysis
+    }
+
+    designConstraint test_req6 {
+    id: 1.2.3
+    text: the sixth test text.
+    risk: medium
+    verifymethod: analysis
+    }
+
+    element test_entity {
+    type: simulation
+    }
+
+    element test_entity2 {
+    type: word doc
+    docRef: reqs/test_entity
+    }
+
+    element test_entity3 {
+    type: "test suite"
+    docRef: github.com/all_the_tests
+    }
+
+
+    test_entity - satisfies -> test_req2
+    test_req - traces -> test_req2
+    test_req - contains -> test_req3
+    test_req3 - contains -> test_req4
+    test_req4 - derives -> test_req5
+    test_req5 - refines -> test_req6
+    test_entity3 - verifies -> test_req5
+    test_req <- copies - test_entity2`,
   },
   'Gitgraph Diagram': {
     explanation:
-      'Gitgraph diagrams visualize Git branch operations and commit history.',
+      'Gitgraph diagrams visualize Git branch operations and commit history. They show branches as parallel lines with commits as nodes. Operations like branch creation, checkout, commit, and merge are represented sequentially. Tags can be added to specific commits, and branch order can be customized.',
     code: `gitGraph
     commit
     branch develop
@@ -153,133 +278,159 @@ export const diagramExamples: Record<string, DiagramExample> = {
     branch feature
     checkout feature
     commit
+    commit
+    checkout develop
+    merge feature
+    commit
     checkout main
-    merge feature`,
+    merge develop
+    commit tag:"v1.0.0"`,
   },
   'C4 Diagram': {
     explanation:
-      'C4 diagrams show the architecture of software systems at different levels of detail.',
-    code: `C4Context
-    title System Context diagram for Internet Banking System
-    Enterprise_Boundary(b0, "BankingSystem") {
-      Person(customer, "Banking Customer", "A customer of the bank")
-      System(banking_system, "Internet Banking System", "Allows customers to view their bank accounts")
-    }
-    Rel(customer, banking_system, "Uses")`,
+      'C4 diagrams show the architecture of software systems at different levels of detail: Context, Container, Component, and Code. They define boundaries (enterprise, system) and elements (person, system, container, component) with relationships between them. C4 diagrams help visualize system architecture from high-level context to detailed implementation.',
+    code: `    C4Context
+      title System Context diagram for Internet Banking System
+      Enterprise_Boundary(b0, "BankBoundary0") {
+        Person(customerA, "Banking Customer A", "A customer of the bank, with personal bank accounts.")
+        Person(customerB, "Banking Customer B")
+        Person_Ext(customerC, "Banking Customer C", "desc")
+
+        Person(customerD, "Banking Customer D", "A customer of the bank, <br/> with personal bank accounts.")
+
+        System(SystemAA, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
+
+        Enterprise_Boundary(b1, "BankBoundary") {
+
+          SystemDb_Ext(SystemE, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+
+          System_Boundary(b2, "BankBoundary2") {
+            System(SystemA, "Banking System A")
+            System(SystemB, "Banking System B", "A system of the bank, with personal bank accounts. next line.")
+          }
+
+          System_Ext(SystemC, "E-mail system", "The internal Microsoft Exchange e-mail system.")
+          SystemDb(SystemD, "Banking System D Database", "A system of the bank, with personal bank accounts.")
+
+          Boundary(b3, "BankBoundary3", "boundary") {
+            SystemQueue(SystemF, "Banking System F Queue", "A system of the bank.")
+            SystemQueue_Ext(SystemG, "Banking System G Queue", "A system of the bank, with personal bank accounts.")
+          }
+        }
+      }
+
+      BiRel(customerA, SystemAA, "Uses")
+      BiRel(SystemAA, SystemE, "Uses")
+      Rel(SystemAA, SystemC, "Sends e-mails", "SMTP")
+      Rel(SystemC, customerA, "Sends e-mails to")
+
+      UpdateElementStyle(customerA, $fontColor="red", $bgColor="grey", $borderColor="red")
+      UpdateRelStyle(customerA, SystemAA, $textColor="blue", $lineColor="blue", $offsetX="5")
+      UpdateRelStyle(SystemAA, SystemE, $textColor="blue", $lineColor="blue", $offsetY="-10")
+      UpdateRelStyle(SystemAA, SystemC, $textColor="blue", $lineColor="blue", $offsetY="-40", $offsetX="-50")
+      UpdateRelStyle(SystemC, customerA, $textColor="red", $lineColor="red", $offsetX="-50", $offsetY="20")
+
+      UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")`,
   },
   Mindmap: {
     explanation:
-      'Mindmaps organize information hierarchically around a central concept.',
+      'Mindmaps organize information hierarchically around a central concept. They use indentation to define hierarchy levels and can use different node shapes (default, square, rounded, circle, bang, cloud, hexagon) to distinguish between different types of information. Icons and styling classes can be added for visual enhancement.',
     code: `mindmap
-    root((Project))
-      Planning
-        Timeline
-        Resources
-        Budget
-      Development
-        Frontend
-        Backend
-        Database
-      Testing
-        Unit Tests
-        Integration
-        QA`,
+  root((mindmap))
+    Origins
+      Long history
+      ::icon(fa fa-book)
+      Popularisation
+        British popular psychology author Tony Buzan
+    Research
+      On effectiveness<br/>and features
+      On Automatic creation
+        Uses
+            Creative techniques
+            Strategic planning
+            Argument mapping
+    Tools
+      Pen and paper
+      Mermaid`,
   },
   Timeline: {
     explanation:
-      'Timeline diagrams show events or milestones in chronological order.',
+      'Timeline diagrams show events or milestones in chronological order. Each time point is defined with a date/time followed by a colon, and multiple events can be listed under a single time point with indentation. Time points are displayed in the order they appear in the code, making it easy to visualize project timelines or historical events.',
     code: `timeline
     title Project Timeline
-    section Planning
-      Requirements : 2024-01
-      Design : 2024-02
-    section Development
-      Phase 1 : 2024-03 : 2024-04
-      Phase 2 : 2024-05 : 2024-06
-    section Launch
-      Beta : 2024-07
-      Release : 2024-08`,
+    
+    2023-01-15 : Project kickoff
+                : Team formation
+    2023-02-01 : Requirements finalized
+    2023-02-15 : Design phase
+                : Architecture decisions
+                : UI mockups approved
+    2023-03-10 : Development starts
+    2023-04-20 : Alpha release
+    2023-05-15 : Beta testing
+    2023-06-01 : Version 1.0 release`,
   },
   'Sankey Diagram': {
     explanation:
-      'Sankey diagrams visualize flow quantities, where the width of arrows is proportional to the flow rate.',
+      "Sankey diagrams visualize flow quantities, where the width of arrows is proportional to the flow rate. Nodes represent entities with values, and links between nodes show the flow amount. They're useful for visualizing energy transfers, material flows, or budget allocations where proportional representation is important.",
     code: `sankey-beta
-    Traffic,Website,100
-    Website,Homepage,60
-    Website,Blog,40
-    Homepage,Product,40
-    Homepage,About,20
-    Blog,Product,30
-    Blog,Contact,10`,
+
+%% source,target,value
+Electricity grid,Over generation / exports,104.453
+Electricity grid,Heating and cooling - homes,113.726
+Electricity grid,H2 conversion,27.14
+`,
   },
   'XY Chart': {
     explanation:
-      'XY charts plot data points on a two-dimensional graph, useful for showing relationships between variables.',
+      'XY charts plot data points on a two-dimensional graph, useful for showing relationships between variables. They support both line and bar series, with customizable axes and titles. The x-axis can be categorical (labels) or numerical (min to max range), and multiple data series can be displayed on the same chart for comparison.',
     code: `xychart-beta
-    title "Sales Growth"
-    x-axis [jan, feb, mar, apr, may, jun]
-    y-axis "Sales (K)" 0 --> 100
-    line [10, 20, 45, 32, 67, 89]
-    bar [5, 15, 30, 25, 50, 70]`,
-  },
-  'Block Diagram': {
-    explanation:
-      'Block diagrams show the high-level structure of a system using connected blocks.',
-    code: `graph TD
-    subgraph Main[Main System]
-    direction LR
-    end
+    title "Monthly Sales Performance"
+    x-axis [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    y-axis "Revenue ($1000s)" 0 --> 100
     
-    subgraph IO[Input/Output]
-    direction LR
-    Input[Input Module]
-    Output[Output Module]
-    end
-    
-    subgraph Processing[Processing Layer]
-    direction LR
-    DB[(Database)]
-    API[API Service]
-    Logic[Business Logic]
-    end
-    
-    Main --> IO
-    Input --> Logic
-    Logic --> DB
-    Logic --> API
-    API --> Output
-    
-    style Main fill:#f9f,stroke:#333,stroke-width:2px
-    style IO fill:#bbf,stroke:#333,stroke-width:1px
-    style Processing fill:#dfd,stroke:#333,stroke-width:1px`,
+    line [10, 20, 30, 40, 50, 60, 70, 60, 50, 40, 30, 20]
+    bar [5, 15, 25, 35, 45, 55, 65, 55, 45, 35, 25, 15]`,
   },
   'Process Flow': {
     explanation:
-      'Process flow diagrams illustrate the steps and decisions in a business process or workflow.',
-    code: `graph LR
+      'Process flow diagrams illustrate the steps and decisions in a business process or workflow. They use flowchart notation with different shapes for different step types: rectangles for processes, diamonds for decisions, and rounded rectangles for start/end points. Arrows show the flow direction and can be labeled to explain conditions or transitions.',
+    code: `flowchart LR
     A[Start] --> B{Input Valid?}
     B -->|Yes| C[Process Data]
     B -->|No| D[Request New Input]
     C --> E[Save Results]
     D --> B
-    E --> F[End]`,
+    E --> F[Generate Report]
+    F --> G[Send Notification]
+    G --> H[End]`,
   },
   'System Diagram': {
     explanation:
-      'System diagrams show the components and interactions within a complex system.',
-    code: `graph TB
-    subgraph Frontend
-    UI[User Interface]
-    Forms[Forms]
+      'System diagrams show the components and interactions within a complex system. They use different shapes for different component types: rectangles for services, cylinders for databases, hexagons for external systems, and circles for entry/exit points. Components can be grouped into subgraphs, and connections can be labeled to explain the nature of interactions.',
+    code: `flowchart LR
+    User((User)) -->|Request| LB[Load Balancer]
+    
+    subgraph Services
+        LB -->|Forward| S1[Service A]
+        LB -->|Forward| S2[Service B]
+        S1 <-->|Internal| S2
     end
-    subgraph Backend
-    API[API Server]
-    Auth[Authentication]
-    DB[(Database)]
+    
+    subgraph Data
+        DB1[(Primary DB)]
+        DB2[(Replica DB)]
+        DB1 -->|Sync| DB2
     end
-    UI --> API
-    Forms --> API
-    API --> Auth
-    API --> DB`,
+    
+    S1 -->|Read/Write| DB1
+    S2 -->|Read| DB2
+    
+    S1 -->|Notify| Q[Message Queue]
+    Q -->|Process| W[Worker Service]
+    W -->|Store Results| DB1
+    
+    S2 -->|Call| ES{{External API}}
+    ES -->|Response| S2`,
   },
 };

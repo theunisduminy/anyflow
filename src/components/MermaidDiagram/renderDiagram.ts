@@ -92,15 +92,13 @@ export const renderDiagram = async (
           <p class="text-sm mt-1">Failed to render the diagram. Please check the Mermaid syntax.</p>
           <details class="mt-2">
             <summary class="cursor-pointer text-sm font-medium">View Mermaid Code</summary>
-            <pre class="mt-2 text-xs overflow-auto p-2 bg-gray-100 rounded">${code
+            <pre class="mt-2 text-xs overflow-auto p-2 rounded">${code
               .replace(/</g, '&lt;')
               .replace(/>/g, '&gt;')}</pre>
           </details>
           <details class="mt-2">
             <summary class="cursor-pointer text-sm font-medium">Error Details</summary>
-            <pre class="mt-2 text-xs overflow-auto p-2 bg-gray-100 rounded">${String(
-              error
-            )
+            <pre class="mt-2 text-xs overflow-auto p-2 rounded">${String(error)
               .replace(/</g, '&lt;')
               .replace(/>/g, '&gt;')}</pre>
           </details>

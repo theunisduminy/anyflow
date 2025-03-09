@@ -24,7 +24,7 @@ export default function GuidePage() {
 
   return (
     <>
-      <div className="container mx-auto p-6 max-w-7xl">
+      <div className="container mx-auto py-8 px-6 max-w-6xl">
         <h1 className="text-3xl font-bold mb-2">Diagram Types Guide</h1>
         <p className="text-muted-foreground mb-6">
           Choose a flowchart or diagram to see an example and learn how to use
@@ -51,7 +51,7 @@ export default function GuidePage() {
           </select>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 min-h-screen">
           {diagramExamples[selectedDiagram] ? (
             <>
               <div className="prose max-w-none">

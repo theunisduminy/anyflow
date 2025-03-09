@@ -3,7 +3,8 @@ import mermaid from 'mermaid';
 export const initializeMermaid = () => {
   mermaid.initialize({
     startOnLoad: true,
-    theme: 'default',
+    theme: 'base',
+    look: 'classic',
     securityLevel: 'loose',
     logLevel: 3,
     fontFamily: 'sans-serif',

@@ -154,7 +154,7 @@ export function DiagramDisplay({
               </Button>
             </div>
           </div>
-          <div className="flex-1 overflow-auto p-4 bg-gray-50">
+          <div className="flex-1 overflow-auto p-4">
             <div className="h-full w-full flex items-center justify-center">
               <MermaidDiagram
                 code={mermaidCode}
@@ -203,7 +203,7 @@ export function DiagramDisplay({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="border rounded-lg md:p-4 h-fit">
+        <div className="border rounded-lg h-fit">
           <MermaidDiagram
             code={mermaidCode}
             className="max-w-full"
