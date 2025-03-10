@@ -3,8 +3,8 @@ import { Toaster } from '@/components/ui/sonner';
 
 export default function Home() {
   return (
-    <main className='mx-auto min-h-screen max-w-6xl px-6'>
-      <div className='container mx-auto py-8'>
+    <main className='mx-auto min-h-screen max-w-6xl px-6 md:px-10'>
+      <div className='container py-8'>
         <div className='mb-8 text-left'>
           <h1 className='text-3xl font-bold tracking-tight'>
             Generate diagrams with AI

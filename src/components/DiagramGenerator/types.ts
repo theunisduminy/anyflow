@@ -19,6 +19,4 @@ export const DIAGRAM_TYPES = [
   'Timeline',
   'Sankey Diagram',
   'XY Chart',
-  'Process Flow',
-  'System Diagram',
 ];

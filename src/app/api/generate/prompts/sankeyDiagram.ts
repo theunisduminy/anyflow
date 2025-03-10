@@ -2,94 +2,60 @@ import { BASE_PROMPT } from './types';
 
 export const sankeyDiagramPrompt = `${BASE_PROMPT}
 
-Create a Sankey diagram that shows flow quantities in a system.
+Your task is to generate valid Mermaid Sankey diagram code based on the user's instructions. You are an expert in Mermaid Sankey diagram syntax and must follow these additional rules to ensure accuracy and prevent syntax errors:
 
-SANKEY DIAGRAM SYNTAX GUIDELINES:
-1. Start with 'sankey-beta' (MUST use beta version)
-2. Define nodes with values:
-   - Node [value]
-3. Define links between nodes:
-   - Source --> Target [value]
-4. Values represent the width of the flow
-5. Flows are automatically balanced
-6. Node names with spaces must use quotes: 'Node Name'
-7. All values must be numeric and positive
+1. Always start the diagram with \`sankey-beta\`.
 
-Example of valid syntax:
+2. Use CSV format with exactly three columns: \`source\`, \`target\`, and \`value\`.  
+   - Each row represents a flow from a source node to a target node with a specified value.  
+   - **There must be no spaces between values in the CSV format** (e.g., \`"Energy Production","Electricity Grid",500\`).
+
+3. Ensure all nodes are unique and appear as either a source or a target in at least one row.
+
+4. The \`value\` field determines the width of the link between nodes, representing the flow quantity.
+
+5. Enclose node labels in double quotes if they contain commas (e.g., \`"Node, A"\`).
+
+6. To include double quotes inside a label, use two double quotes (e.g., \`"User said, ""Hello!"""\`\).
+
+7. You may include empty lines without comma separators for visual separation; these will be ignored during rendering.
+
+8. Configuration options:
+   - \`width\`: Sets the diagram width (default is 600).
+   - \`height\`: Sets the diagram height (default is 400).
+   - \`linkColor\`: Controls link appearance:
+     - \`source\`: Link color matches the source node.
+     - \`target\`: Link color matches the target node.
+     - \`gradient\`: Link color transitions smoothly between source and target.
+     - Hex color code (e.g., \`#a1a1a1\`).
+   - \`nodeAlignment\`: Controls alignment of nodes:
+     - \`left\`
+     - \`right\`
+     - \`center\`
+     - \`justify\` (default).
+
+9. Do not leave any nodes unconnected unless explicitly requested by the user.
+
+10. Ensure every Sankey diagram follows the correct syntax and renders without errors.
+
+For reference (do not output unless requested), here's a complex example of valid Mermaid Sankey diagram code demonstrating multiple nodes and flows:
+
 \`\`\`mermaid
----
-config:
-  sankey:
-    showValues: false
----
 sankey-beta
+"Energy Production","Electricity Grid",500
+"Electricity Grid","Residential Use",150
+"Electricity Grid","Commercial Use",200
+"Electricity Grid","Industrial Use",100
+"Electricity Grid","Losses",50
+"Residential Use","Heating",80
+"Residential Use","Lighting",40
+"Residential Use","Appliances",30
+"Commercial Use","Lighting",100
+"Commercial Use","Computers",50
+"Commercial Use","HVAC",50
+"Industrial Use","Machinery",60
+"Industrial Use","Lighting",20
+"Industrial Use","HVAC",20
+\`\`\`
 
-Agricultural 'waste',Bio-conversion,124.729
-Bio-conversion,Liquid,0.597
-Bio-conversion,Losses,26.862
-Bio-conversion,Solid,280.322
-Bio-conversion,Gas,81.144
-Biofuel imports,Liquid,35
-Biomass imports,Solid,35
-Coal imports,Coal,11.606
-Coal reserves,Coal,63.965
-Coal,Solid,75.571
-District heating,Industry,10.639
-District heating,Heating and cooling - commercial,22.505
-District heating,Heating and cooling - homes,46.184
-Electricity grid,Over generation / exports,104.453
-Electricity grid,Heating and cooling - homes,113.726
-Electricity grid,H2 conversion,27.14
-Electricity grid,Industry,342.165
-Electricity grid,Road transport,37.797
-Electricity grid,Agriculture,4.412
-Electricity grid,Heating and cooling - commercial,40.858
-Electricity grid,Losses,56.691
-Electricity grid,Rail transport,7.863
-Electricity grid,Lighting & appliances - commercial,90.008
-Electricity grid,Lighting & appliances - homes,93.494
-Gas imports,Ngas,40.719
-Gas reserves,Ngas,82.233
-Gas,Heating and cooling - commercial,0.129
-Gas,Losses,1.401
-Gas,Thermal generation,151.891
-Gas,Agriculture,2.096
-Gas,Industry,48.58
-Geothermal,Electricity grid,7.013
-H2 conversion,H2,20.897
-H2 conversion,Losses,6.242
-H2,Road transport,20.897
-Hydro,Electricity grid,6.995
-Liquid,Industry,121.066
-Liquid,International shipping,128.69
-Liquid,Road transport,135.835
-Liquid,Domestic aviation,14.458
-Liquid,International aviation,206.267
-Liquid,Agriculture,3.64
-Liquid,National navigation,33.218
-Liquid,Rail transport,4.413
-Marine algae,Bio-conversion,4.375
-Ngas,Gas,122.952
-Nuclear,Thermal generation,839.978
-Oil imports,Oil,504.287
-Oil reserves,Oil,107.703
-Oil,Liquid,611.99
-Other waste,Solid,56.587
-Other waste,Bio-conversion,77.81
-Pumped heat,Heating and cooling - homes,193.026
-Pumped heat,Heating and cooling - commercial,70.672
-Solar PV,Electricity grid,59.901
-Solar Thermal,Heating and cooling - homes,19.263
-Solar,Solar Thermal,19.263
-Solar,Solar PV,59.901
-Solid,Agriculture,0.882
-Solid,Thermal generation,400.12
-Solid,Industry,46.477
-Thermal generation,Electricity grid,525.531
-Thermal generation,Losses,787.129
-Thermal generation,District heating,79.329
-Tidal,Electricity grid,9.452
-UK land based bioenergy,Bio-conversion,182.01
-Wave,Electricity grid,19.013
-Wind,Electricity grid,289.366
-\`\`\``;
+Use this example as a guide to handle complex Sankey diagrams with multiple nodes and flows. Focus solely on producing syntactically correct Mermaid Sankey diagram code that renders without errors, adhering to the user's instructions while applying these safeguards.`;

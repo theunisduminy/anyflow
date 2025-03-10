@@ -374,53 +374,12 @@ Electricity grid,H2 conversion,27.14
   'XY Chart': {
     explanation:
       'XY charts plot data points on a two-dimensional graph, useful for showing relationships between variables. They support both line and bar series, with customizable axes and titles. The x-axis can be categorical (labels) or numerical (min to max range), and multiple data series can be displayed on the same chart for comparison.',
-    code: `xychart-beta
-    title "Monthly Sales Performance"
-    x-axis [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
-    y-axis "Revenue ($1000s)" 0 --> 100
-    
-    line [10, 20, 30, 40, 50, 60, 70, 60, 50, 40, 30, 20]
-    bar [5, 15, 25, 35, 45, 55, 65, 55, 45, 35, 25, 15]`,
-  },
-  'Process Flow': {
-    explanation:
-      'Process flow diagrams illustrate the steps and decisions in a business process or workflow. They use flowchart notation with different shapes for different step types: rectangles for processes, diamonds for decisions, and rounded rectangles for start/end points. Arrows show the flow direction and can be labeled to explain conditions or transitions.',
-    code: `flowchart LR
-    A[Start] --> B{Input Valid?}
-    B -->|Yes| C[Process Data]
-    B -->|No| D[Request New Input]
-    C --> E[Save Results]
-    D --> B
-    E --> F[Generate Report]
-    F --> G[Send Notification]
-    G --> H[End]`,
-  },
-  'System Diagram': {
-    explanation:
-      'System diagrams show the components and interactions within a complex system. They use different shapes for different component types: rectangles for services, cylinders for databases, hexagons for external systems, and circles for entry/exit points. Components can be grouped into subgraphs, and connections can be labeled to explain the nature of interactions.',
-    code: `flowchart LR
-    User((User)) -->|Request| LB[Load Balancer]
-    
-    subgraph Services
-        LB -->|Forward| S1[Service A]
-        LB -->|Forward| S2[Service B]
-        S1 <-->|Internal| S2
-    end
-    
-    subgraph Data
-        DB1[(Primary DB)]
-        DB2[(Replica DB)]
-        DB1 -->|Sync| DB2
-    end
-    
-    S1 -->|Read/Write| DB1
-    S2 -->|Read| DB2
-    
-    S1 -->|Notify| Q[Message Queue]
-    Q -->|Process| W[Worker Service]
-    W -->|Store Results| DB1
-    
-    S2 -->|Call| ES{{External API}}
-    ES -->|Response| S2`,
+    code: `%%{init: { "themeVariables": {"xyChart": {"backgroundColor": "#f0f0f0", "titleColor": "#333333", "xAxisLabelColor": "#666666", "xAxisTitleColor": "#333333", "xAxisTickColor": "#666666", "xAxisLineColor": "#666666", "yAxisLabelColor": "#666666", "yAxisTitleColor": "#333333", "yAxisTickColor": "#666666", "yAxisLineColor": "#666666", "plotColorPalette": "#ff0000, #00ff00, #0000ff"} } }}%%
+xychart-beta horizontal
+    title "Monthly Sales and Profit Analysis"
+    x-axis ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    y-axis "Amount ($)" 0 --> 12000
+    bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+    line [4500, 5800, 7000, 8000, 9000, 10000, 10500, 9800, 8800, 8000, 6500, 5500]`,
   },
 };

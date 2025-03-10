@@ -4,7 +4,6 @@
 
 export type DiagramType =
   | 'Flowchart'
-  | 'Process Flow'
   | 'Sequence Diagram'
   | 'Class Diagram'
   | 'State Diagram'
@@ -19,8 +18,7 @@ export type DiagramType =
   | 'Mindmap'
   | 'Timeline'
   | 'Sankey Diagram'
-  | 'XY Chart'
-  | 'System Diagram';
+  | 'XY Chart';
 
 export const BASE_PROMPT = `You are an expert at creating Mermaid diagrams. Your task is to generate ONLY valid Mermaid code based on the user's description.
 

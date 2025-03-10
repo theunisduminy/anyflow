@@ -125,7 +125,6 @@ function extractMermaidCode(content: string): string | null {
 function getSystemPrompt(diagramType: string): string {
   switch (diagramType) {
     case 'Flowchart':
-    case 'Process Flow':
       return flowchartPrompt;
 
     case 'Sequence Diagram':
@@ -173,9 +172,6 @@ function getSystemPrompt(diagramType: string): string {
 
     case 'XY Chart':
       return xyChartPrompt;
-
-    case 'System Diagram':
-      return systemDiagramPrompt;
 
     default:
       return `${BASE_PROMPT}

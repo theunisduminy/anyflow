@@ -24,7 +24,7 @@ export default function GuidePage() {
 
   return (
     <>
-      <div className='container mx-auto max-w-6xl px-6 py-8'>
+      <div className='container mx-auto max-w-6xl px-6 py-8 md:px-10'>
         <h1 className='mb-2 text-3xl font-bold'>Diagram Types Guide</h1>
         <p className='text-muted-foreground mb-6'>
           Choose a flowchart or diagram to see an example and learn how to use
@@ -35,13 +35,13 @@ export default function GuidePage() {
             htmlFor='diagram-select'
             className='mb-4 block w-full text-base font-medium'
           >
-            Select Diagram Type
+            Diagram Type:
           </label>
           <select
             id='diagram-select'
             value={selectedDiagram}
             onChange={(e) => setSelectedDiagram(e.target.value)}
-            className='w-fit rounded-md border p-2'
+            className='w-full rounded-md border px-1 py-2'
           >
             {DIAGRAM_TYPES.map((type) => (
               <option key={type} value={type}>

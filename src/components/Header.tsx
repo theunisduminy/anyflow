@@ -13,7 +13,7 @@ import {
 export function Header() {
   return (
     <header className='border-b'>
-      <div className='container mx-auto flex h-16 max-w-6xl items-center justify-between px-6'>
+      <div className='container mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:px-10'>
         <Link href='/' className='text-xl font-bold'>
           AnyFlow
         </Link>
