@@ -10,7 +10,7 @@ export default function Home() {
             Generate diagrams with AI
           </h1>
           <p className='text-muted-foreground mt-2'>
-            Convert text descriptions into visual diagrams using AI
+            Convert text descriptions into flowcharts and diagrams.
           </p>
         </div>
         <DiagramGenerator />

@@ -15,7 +15,6 @@ export const DIAGRAM_TYPES = [
   'Quadrant Chart',
   'Requirement Diagram',
   'Gitgraph Diagram',
-  'C4 Diagram',
   'Mindmap',
   'Timeline',
   'Sankey Diagram',

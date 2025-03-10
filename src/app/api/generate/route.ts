@@ -14,7 +14,7 @@ import {
   pieChartPrompt,
   quadrantChartPrompt,
   requirementDiagramPrompt,
-  gitgraphDiagramPrompt,
+  gitGraphDiagramPrompt,
   c4DiagramPrompt,
   mindmapPrompt,
   timelinePrompt,
@@ -157,7 +157,7 @@ function getSystemPrompt(diagramType: string): string {
       return requirementDiagramPrompt;
 
     case 'Gitgraph Diagram':
-      return gitgraphDiagramPrompt;
+      return gitGraphDiagramPrompt;
 
     case 'C4 Diagram':
       return c4DiagramPrompt;

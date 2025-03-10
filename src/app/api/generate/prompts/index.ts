@@ -13,7 +13,7 @@ export { ganttChartPrompt } from './ganttChart';
 export { pieChartPrompt } from './pieChart';
 export { quadrantChartPrompt } from './quadrantChart';
 export { requirementDiagramPrompt } from './requirementDiagram';
-export { gitgraphDiagramPrompt } from './gitgraphDiagram';
+export { gitGraphDiagramPrompt } from './gitgraphDiagram';
 export { c4DiagramPrompt } from './c4Diagram';
 export { mindmapPrompt } from './mindmap';
 export { timelinePrompt } from './timeline';

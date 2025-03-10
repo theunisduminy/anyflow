@@ -312,52 +312,6 @@ Final deployment           :milestone, dp2, after dp1, 0d`,
     merge develop
     commit tag:"v1.0.0"`,
   },
-  'C4 Diagram': {
-    explanation:
-      'C4 diagrams show the architecture of software systems at different levels of detail: Context, Container, Component, and Code. They define boundaries (enterprise, system) and elements (person, system, container, component) with relationships between them. C4 diagrams help visualize system architecture from high-level context to detailed implementation.',
-    code: `    C4Context
-      title System Context diagram for Internet Banking System
-      Enterprise_Boundary(b0, "BankBoundary0") {
-        Person(customerA, "Banking Customer A", "A customer of the bank, with personal bank accounts.")
-        Person(customerB, "Banking Customer B")
-        Person_Ext(customerC, "Banking Customer C", "desc")
-
-        Person(customerD, "Banking Customer D", "A customer of the bank, <br/> with personal bank accounts.")
-
-        System(SystemAA, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
-
-        Enterprise_Boundary(b1, "BankBoundary") {
-
-          SystemDb_Ext(SystemE, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
-
-          System_Boundary(b2, "BankBoundary2") {
-            System(SystemA, "Banking System A")
-            System(SystemB, "Banking System B", "A system of the bank, with personal bank accounts. next line.")
-          }
-
-          System_Ext(SystemC, "E-mail system", "The internal Microsoft Exchange e-mail system.")
-          SystemDb(SystemD, "Banking System D Database", "A system of the bank, with personal bank accounts.")
-
-          Boundary(b3, "BankBoundary3", "boundary") {
-            SystemQueue(SystemF, "Banking System F Queue", "A system of the bank.")
-            SystemQueue_Ext(SystemG, "Banking System G Queue", "A system of the bank, with personal bank accounts.")
-          }
-        }
-      }
-
-      BiRel(customerA, SystemAA, "Uses")
-      BiRel(SystemAA, SystemE, "Uses")
-      Rel(SystemAA, SystemC, "Sends e-mails", "SMTP")
-      Rel(SystemC, customerA, "Sends e-mails to")
-
-      UpdateElementStyle(customerA, $fontColor="red", $bgColor="grey", $borderColor="red")
-      UpdateRelStyle(customerA, SystemAA, $textColor="blue", $lineColor="blue", $offsetX="5")
-      UpdateRelStyle(SystemAA, SystemE, $textColor="blue", $lineColor="blue", $offsetY="-10")
-      UpdateRelStyle(SystemAA, SystemC, $textColor="blue", $lineColor="blue", $offsetY="-40", $offsetX="-50")
-      UpdateRelStyle(SystemC, customerA, $textColor="red", $lineColor="red", $offsetX="-50", $offsetY="20")
-
-      UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")`,
-  },
   Mindmap: {
     explanation:
       'Mindmaps organize information hierarchically around a central concept. They use indentation to define hierarchy levels and can use different node shapes (default, square, rounded, circle, bang, cloud, hexagon) to distinguish between different types of information. Icons and styling classes can be added for visual enhancement.',
@@ -383,18 +337,28 @@ Final deployment           :milestone, dp2, after dp1, 0d`,
     explanation:
       'Timeline diagrams show events or milestones in chronological order. Each time point is defined with a date/time followed by a colon, and multiple events can be listed under a single time point with indentation. Time points are displayed in the order they appear in the code, making it easy to visualize project timelines or historical events.',
     code: `timeline
-    title Project Timeline
-    
-    2023-01-15 : Project kickoff
-                : Team formation
-    2023-02-01 : Requirements finalized
-    2023-02-15 : Design phase
-                : Architecture decisions
-                : UI mockups approved
-    2023-03-10 : Development starts
-    2023-04-20 : Alpha release
-    2023-05-15 : Beta testing
-    2023-06-01 : Version 1.0 release`,
+    title Major Technological Advancements
+    section The Early Years
+        1960s : Introduction of COBOL
+               : Development of ARPANET
+    section Personal Computing Era
+        1970s : Release of the first microprocessor
+               : Introduction of the Apple II
+        1980s : IBM PC launched
+               : Emergence of MS-DOS
+               : Introduction of the Macintosh
+    section The Internet Age
+        1990s : World Wide Web goes public
+               : Introduction of Windows 95
+               : Rise of dot-com companies
+        2000s : Launch of social media platforms
+               : Introduction of the iPhone
+               : Emergence of cloud computing
+    section Modern Era
+        2010s : Advancement in artificial intelligence
+               : Growth of blockchain technology
+        2020s : Expansion of 5G networks
+               : Developments in quantum computing`,
   },
   'Sankey Diagram': {
     explanation:

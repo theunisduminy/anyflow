@@ -16,7 +16,6 @@ export type DiagramType =
   | 'Quadrant Chart'
   | 'Requirement Diagram'
   | 'Gitgraph Diagram'
-  | 'C4 Diagram'
   | 'Mindmap'
   | 'Timeline'
   | 'Sankey Diagram'

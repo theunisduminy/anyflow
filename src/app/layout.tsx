@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'AnyFlow',
-  description: 'Generate any type of diagram or flowchart using AI',
+  description:
+    'Generate any type of diagram or flowchart using AI. Create sequence diagrams, entity relationship diagrams, gantt charts, and more.',
 };
 
 export default function RootLayout({
