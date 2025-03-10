@@ -6,18 +6,27 @@ Convert natural language descriptions into beautiful visual diagrams using AI-po
 
 AnyFlow is a modern web application that bridges the gap between natural language and visual diagrams. Using the power of AI, it transforms your text descriptions into professional Mermaid diagrams, making it perfect for creating:
 
-- Process flows and flowcharts
-- Entity-Relationship Diagrams (ERD)
-- System architecture diagrams
-- And more!
+- Flowchart
+- Sequence Diagram
+- Class Diagram
+- State Diagram
+- Entity Relationship Diagram
+- EERD (Extended Entity Relationship Diagram)
+- User Journey
+- Gantt Chart
+- Pie Chart
+- Quadrant Chart
+- Requirement Diagram
+- Gitgraph Diagram
+- Mindmap
+- Timeline
+- Sankey Diagram
+- XY Chart
 
 ## ✨ Features
 
-- 🤖 **AI-Powered Generation**: Leverages OpenAI's API to understand and convert text descriptions into accurate diagrams
-- 📊 **Multiple Diagram Types**:
-  - Process Flow Diagrams
-  - Extended Entity-Relationship Diagrams (EERD)
-  - System Architecture Diagrams
+- 🤖 **AI-Powered Generation**: Leverages OpenAI's and Gemini's API to understand and convert text descriptions into accurate diagrams
+- 📊 **Multiple Diagram Types**: Create more than 10 different diagrams from text
 - 🔄 **Interactive Refinement**: Iteratively improve your diagrams with follow-up prompts
 - 📋 **Code Export**: Copy generated Mermaid code directly to your clipboard
 - 🎨 **Modern UI/UX**: Built with TailwindCSS and shadcn/ui for a beautiful, responsive experience
@@ -36,8 +45,8 @@ AnyFlow is a modern web application that bridges the gap between natural languag
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/diagram-ai.git
-   cd diagram-ai
+   git clone https://github.com/yourusername/anyflow.git
+   cd anyflow
    ```
 
 2. Install dependencies:

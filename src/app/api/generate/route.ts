@@ -19,7 +19,6 @@ import {
   timelinePrompt,
   sankeyDiagramPrompt,
   xyChartPrompt,
-  systemDiagramPrompt,
 } from './prompts';
 
 type ModelType = 'OPEN_AI' | 'GEMINI';
