@@ -46,20 +46,20 @@ export function DiagramForm({
 }: DiagramFormProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-3xl mb-2">
+      <CardHeader className='flex flex-row items-center justify-between'>
+        <CardTitle className='mb-2 text-3xl'>
           Create <strong>any</strong> diagram
         </CardTitle>
         {!isInitialGeneration && (
-          <Button variant="outline" size="sm" onClick={handleReset}>
+          <Button variant='outline' size='sm' onClick={handleReset}>
             Start Over
           </Button>
         )}
       </CardHeader>
-      <CardContent className="space-y-8">
+      <CardContent className='space-y-8'>
         {/* Diagram Type Selection */}
-        <div className="space-y-2 w-fit flex flex-row gap-x-4 justify-between items-baseline">
-          <Label className="min-w-24 w-full" htmlFor="diagram-type">
+        <div className='flex w-fit flex-row items-baseline justify-between space-y-2 gap-x-4'>
+          <Label className='w-full min-w-24' htmlFor='diagram-type'>
             Diagram Type:
           </Label>
           <Select
@@ -67,8 +67,8 @@ export function DiagramForm({
             onValueChange={setDiagramType}
             disabled={isGenerating || !isInitialGeneration}
           >
-            <SelectTrigger id="diagram-type" className="w-full">
-              <SelectValue placeholder="Select diagram type" />
+            <SelectTrigger id='diagram-type' className='w-full'>
+              <SelectValue placeholder='Select diagram type' />
             </SelectTrigger>
             <SelectContent>
               {DIAGRAM_TYPES.map((type) => (
@@ -82,13 +82,13 @@ export function DiagramForm({
 
         {/* Initial Description Input */}
         {isInitialGeneration && (
-          <div className="mt-4">
+          <div className='mt-4'>
             <Textarea
-              id="description"
-              placeholder="Describe the diagram you want to create..."
+              id='description'
+              placeholder='Describe the diagram you want to create...'
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="min-h-32"
+              className='min-h-32'
               disabled={isGenerating}
             />
           </div>
@@ -96,14 +96,14 @@ export function DiagramForm({
 
         {/* Follow-up Prompt Input (only shown after initial generation) */}
         {!isInitialGeneration && (
-          <div className="space-y-2">
-            <Label htmlFor="follow-up">Refine Your Diagram</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='follow-up'>Refine Your Diagram</Label>
             <Textarea
-              id="follow-up"
-              placeholder="Enter a follow-up prompt to refine the diagram..."
+              id='follow-up'
+              placeholder='Enter a follow-up prompt to refine the diagram...'
               value={followUpPrompt}
               onChange={(e) => setFollowUpPrompt(e.target.value)}
-              className="min-h-32"
+              className='min-h-32'
               disabled={isGenerating}
             />
           </div>
@@ -111,9 +111,9 @@ export function DiagramForm({
 
         {/* Error Message */}
         {error && (
-          <div className="p-4 text-red-500 border border-red-300 rounded bg-red-50">
-            <p className="font-medium">Error</p>
-            <p className="text-sm mt-1">{error}</p>
+          <div className='rounded border border-red-300 bg-red-50 p-4 text-red-500'>
+            <p className='font-medium'>Error</p>
+            <p className='mt-1 text-sm'>{error}</p>
           </div>
         )}
 
@@ -121,11 +121,11 @@ export function DiagramForm({
         <Button
           onClick={isInitialGeneration ? handleGenerate : handleRefine}
           disabled={isGenerating}
-          className="w-fit"
+          className='w-fit'
         >
           {isGenerating ? (
             <>
-              <span className="animate-pulse">Generating...</span>
+              <span className='animate-pulse'>Generating...</span>
             </>
           ) : isInitialGeneration ? (
             'Generate Diagram'

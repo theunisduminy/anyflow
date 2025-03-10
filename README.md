@@ -14,7 +14,7 @@ AnyFlow is a modern web application that bridges the gap between natural languag
 ## ✨ Features
 
 - 🤖 **AI-Powered Generation**: Leverages OpenAI's API to understand and convert text descriptions into accurate diagrams
-- 📊 **Multiple Diagram Types**: 
+- 📊 **Multiple Diagram Types**:
   - Process Flow Diagrams
   - Extended Entity-Relationship Diagrams (EERD)
   - System Architecture Diagrams
@@ -34,17 +34,20 @@ AnyFlow is a modern web application that bridges the gap between natural languag
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/diagram-ai.git
    cd diagram-ai
    ```
 
 2. Install dependencies:
+
    ```bash
    pnpm install
    ```
 
 3. Configure environment variables:
+
    - Create a `.env.local` file in the root directory
    - Add your OpenAI API key:
      ```env
@@ -52,6 +55,7 @@ AnyFlow is a modern web application that bridges the gap between natural languag
      ```
 
 4. Start the development server:
+
    ```bash
    pnpm dev
    ```
@@ -61,18 +65,22 @@ AnyFlow is a modern web application that bridges the gap between natural languag
 ## 📖 Usage Guide
 
 1. **Select Diagram Type**
+
    - Choose from the available diagram types in the dropdown menu
    - Each type is optimized for specific use cases
 
 2. **Enter Description**
+
    - Write a natural language description of your desired diagram
    - Be as specific as possible for better results
 
 3. **Generate Diagram**
+
    - Click "Generate Diagram" to create your initial visualization
    - The AI will process your description and generate appropriate Mermaid code
 
 4. **Refine Your Diagram**
+
    - Use the follow-up prompt field to make adjustments
    - Request changes like "make the arrows bidirectional" or "add a new node"
    - Click "Refine Diagram" to apply changes

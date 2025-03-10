@@ -10,7 +10,7 @@ export const renderDiagram = async (
   code: string,
   isReady: boolean,
   isFullScreen: boolean,
-  setDiagramHeight: (height: number | null) => void
+  setDiagramHeight: (height: number | null) => void,
 ) => {
   if (!containerRef.current || !code || !isReady) {
     console.log('Skipping render - prerequisites not met:', {

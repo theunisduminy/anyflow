@@ -31,22 +31,22 @@ export function MermaidDiagram({
       code,
       isReady,
       isFullScreen,
-      updateDiagramHeight
+      updateDiagramHeight,
     );
   }, [code, isReady, isFullScreen, updateDiagramHeight]);
 
   return (
     <div
       ref={containerRef}
-      className={`mermaid-container overflow-auto bg-white rounded-lg shadow-sm ${
+      className={`mermaid-container overflow-auto rounded-lg bg-white shadow-sm ${
         isFullScreen ? 'h-full' : ''
       } ${className}`}
       style={{
         height: isFullScreen
           ? '100%'
           : diagramHeight
-          ? `${diagramHeight}px`
-          : 'auto',
+            ? `${diagramHeight}px`
+            : 'auto',
         padding: '1rem',
         transition: 'height 0.3s ease-in-out',
         margin: '0 auto',

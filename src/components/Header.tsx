@@ -12,24 +12,24 @@ import {
 
 export function Header() {
   return (
-    <header className="border-b">
-      <div className="container mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
+    <header className='border-b'>
+      <div className='container mx-auto flex h-16 max-w-6xl items-center justify-between px-6'>
+        <Link href='/' className='text-xl font-bold'>
           AnyFlow
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className='flex items-center gap-4'>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link href="/" legacyBehavior passHref>
+                <Link href='/' legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Create
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/guide" legacyBehavior passHref>
+                <Link href='/guide' legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Guide
                   </NavigationMenuLink>

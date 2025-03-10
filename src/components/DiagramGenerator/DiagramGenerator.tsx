@@ -51,7 +51,7 @@ export function DiagramGenerator() {
 
       if (!data.mermaidCode) {
         throw new Error(
-          'No valid Mermaid code was generated. Please try again with a different description.'
+          'No valid Mermaid code was generated. Please try again with a different description.',
         );
       }
 
@@ -114,7 +114,7 @@ export function DiagramGenerator() {
 
       if (!data.mermaidCode) {
         throw new Error(
-          'No valid Mermaid code was generated. Please try again with a different prompt.'
+          'No valid Mermaid code was generated. Please try again with a different prompt.',
         );
       }
 
@@ -172,7 +172,7 @@ export function DiagramGenerator() {
   }, [isFullScreen]);
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className='container mx-auto space-y-8 py-8'>
       <DiagramForm
         diagramType={diagramType}
         setDiagramType={setDiagramType}

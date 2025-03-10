@@ -24,24 +24,24 @@ export default function GuidePage() {
 
   return (
     <>
-      <div className="container mx-auto py-8 px-6 max-w-6xl">
-        <h1 className="text-3xl font-bold mb-2">Diagram Types Guide</h1>
-        <p className="text-muted-foreground mb-6">
+      <div className='container mx-auto max-w-6xl px-6 py-8'>
+        <h1 className='mb-2 text-3xl font-bold'>Diagram Types Guide</h1>
+        <p className='text-muted-foreground mb-6'>
           Choose a flowchart or diagram to see an example and learn how to use
           AnyFlow to generate it.
         </p>
-        <div className="mb-6 space-y-2 w-fit flex flex-col md:flex-row gap-x-4 justify-between items-baseline">
+        <div className='mb-6 flex w-fit flex-col items-baseline justify-between space-y-2 gap-x-4 md:flex-row'>
           <label
-            htmlFor="diagram-select"
-            className="block text-base w-full font-medium mb-4"
+            htmlFor='diagram-select'
+            className='mb-4 block w-full text-base font-medium'
           >
             Select Diagram Type
           </label>
           <select
-            id="diagram-select"
+            id='diagram-select'
             value={selectedDiagram}
             onChange={(e) => setSelectedDiagram(e.target.value)}
-            className="w-fit p-2 border rounded-md"
+            className='w-fit rounded-md border p-2'
           >
             {DIAGRAM_TYPES.map((type) => (
               <option key={type} value={type}>
@@ -51,14 +51,14 @@ export default function GuidePage() {
           </select>
         </div>
 
-        <div className="space-y-6 min-h-screen">
+        <div className='min-h-screen space-y-6'>
           {diagramExamples[selectedDiagram] ? (
             <>
-              <div className="prose max-w-none">
-                <h2 className="text-2xl font-semibold mb-4">
+              <div className='prose max-w-none'>
+                <h2 className='mb-4 text-2xl font-semibold'>
                   {selectedDiagram}
                 </h2>
-                <p className="text-muted-foreground">
+                <p className='text-muted-foreground'>
                   {diagramExamples[selectedDiagram]?.explanation}
                 </p>
               </div>
@@ -72,7 +72,7 @@ export default function GuidePage() {
               />
             </>
           ) : (
-            <p className="text-gray-500">
+            <p className='text-gray-500'>
               Example for {selectedDiagram} is coming soon...
             </p>
           )}

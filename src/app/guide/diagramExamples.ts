@@ -84,68 +84,94 @@ export const diagramExamples: Record<string, DiagramExample> = {
     explanation:
       'State diagrams illustrate the different states of a system and the transitions between them. They show how an entity responds to events by changing from one state to another. States can be simple or composite (containing nested states), and transitions can be labeled with events that trigger them.',
     code: `stateDiagram-v2
-    [*] --> Still
-    Still --> [*]
-    Still --> Moving
-    Moving --> Still
-    Moving --> Crash
-    Crash --> [*]`,
+  direction LR
+  [*] --> StateA
+  StateA --> StateB : Event1
+  StateA --> StateC : Event2
+  StateB : Description for StateB
+  state StateC {
+    [*] --> SubState1
+    SubState1 --> SubState2
+    --
+    [*] --> SubState3
+    SubState3 --> SubState4
+  }
+  StateC --> StateD : Event3
+  state ChoiceState <<choice>>
+  StateD --> ChoiceState
+  ChoiceState --> StateE : Condition1
+  ChoiceState --> StateF : Condition2
+  StateE --> [*]
+  StateF --> [*]
+  note right of StateA
+    This is a note for StateA.
+  end note
+  note left of StateD : Note for StateD
+  classDef important fill:#f96,stroke:#333,stroke-width:2px;
+  class StateA,StateD important`,
   },
   'Entity Relationship Diagram': {
     explanation:
       "ERD diagrams show the relationships between entities in a database or system. They define entities with their attributes and the cardinality of relationships (one-to-one, one-to-many, many-to-many). Mermaid uses crow's foot notation for cardinality and allows defining attributes within entity blocks.",
     code: `erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    CUSTOMER {
-        string id
-        string name
-        string email
-        string address
-    }
-    ORDER ||--|{ LINE_ITEM : contains
-    ORDER {
-        string id
-        date created_at
-        string status
-    }
-    LINE_ITEM {
-        string id
-        int quantity
-        float price
-    }
-    PRODUCT ||--o{ LINE_ITEM : "ordered in"
-    PRODUCT {
-        string id
-        string name
-        float price
-        string category
-    }`,
+USER {
+  int user_id PK
+  string username
+  string email
+  int address_id FK
+}
+ADDRESS {
+  int address_id PK
+  string street
+  string city
+  string postal_code
+  int country_id FK
+}
+COUNTRY {
+  int country_id PK
+  string country_name
+}
+ORDER {
+  int order_id PK
+  date order_date
+  float total_amount
+  int user_id FK
+}
+PRODUCT {
+  int product_id PK
+  string product_name
+  float price
+}
+ORDER_ITEM {
+  int order_item_id PK
+  int order_id FK
+  int product_id FK
+  int quantity
+}
+USER ||--|{ ORDER : "places"
+ORDER ||--|{ ORDER_ITEM : "includes"
+PRODUCT ||--|{ ORDER_ITEM : "is included in"
+USER }|..|{ ADDRESS : "resides at"
+ADDRESS ||--|| COUNTRY : "located in"`,
   },
   'Gantt Chart': {
     explanation:
       'Gantt charts display project schedules with tasks, durations, and dependencies. They show tasks as horizontal bars along a timeline, with the length representing duration. Tasks can be organized into sections, and dependencies between tasks can be defined. Milestones can be marked at specific points in time.',
     code: `gantt
-    title Project Development Schedule
-    dateFormat YYYY-MM-DD
-    
-    section Planning
-    Project kickoff       :milestone, 2023-01-15, 0d
-    Requirements gathering :a1, 2023-01-15, 10d
-    System design         :a2, after a1, 15d
-    
-    section Development
-    Frontend development  :b1, after a2, 25d
-    Backend development   :b2, after a2, 30d
-    API integration       :b3, after b1, 5d
-    
-    section Testing
-    Unit testing          :c1, after b2, 10d
-    Integration testing   :c2, after b3, 7d
-    User acceptance       :c3, after c2, 7d
-    
-    section Deployment
-    Training              :d1, after c3, 5d
-    Go Live               :milestone, after d1, 0d`,
+title Project Development Timeline
+dateFormat  YYYY-MM-DD
+axisFormat  %b %d, %Y
+excludes    weekends
+section Planning
+Define project scope       :done,    p1, 2025-01-01, 2025-01-05
+Identify stakeholders      :done,    p2, after p1, 2d
+section Development
+Design phase               :crit,    d1, after p2, 7d
+Implementation             :active,  d2, after d1, 14d
+Testing                    :         d3, after d2, 7d
+section Deployment
+Deployment preparation     :         dp1, after d3, 3d
+Final deployment           :milestone, dp2, after dp1, 0d`,
   },
   'Pie Chart': {
     explanation:
