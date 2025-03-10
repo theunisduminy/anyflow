@@ -37,6 +37,9 @@ export default function RootLayout({
         >
           <Header />
           <main className='flex-1'>{children}</main>
+          <footer className='bg-transparent p-4 text-center text-sm text-gray-500'>
+            {new Date().getFullYear()} © Vertiqal, all rights reserved.
+          </footer>
         </ThemeProvider>
       </body>
     </html>
