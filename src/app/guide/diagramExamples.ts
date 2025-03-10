@@ -8,12 +8,26 @@ export const diagramExamples: Record<string, DiagramExample> = {
     explanation:
       'Flowcharts visualize processes or workflows using connected nodes. They use different shapes to represent different types of steps: rectangles for processes, diamonds for decisions, and rounded rectangles for start/end points. Arrows show the flow direction and can be labeled to explain conditions.',
     code: `flowchart TD
-    A[Start] --> B{Is it raining?}
-    B -->|Yes| C[Take umbrella]
-    B -->|No| D[Enjoy the weather]
-    C --> E[Check forecast]
-    D --> E
-    E --> F[End]`,
+  Start((Start))
+  Process1[Initial Process]
+  Decision{Is Valid?}
+  SubProcess[[Subroutine]]
+  Data[(Database)]
+  Error[Error Handling]
+  Success[Success Outcome]
+  End((END))
+
+  subgraph Preparation Phase
+    Start --> Process1
+    Process1 -->|Check| Decision
+  end
+
+  Decision -->|Yes| SubProcess
+  Decision -->|No| Error
+  SubProcess --> Data
+  Data -.->|Update| Success
+  Error ===> End
+  Success --> End`,
   },
   'Sequence Diagram': {
     explanation:
